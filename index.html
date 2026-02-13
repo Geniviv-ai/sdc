@@ -117,6 +117,43 @@
             transform: translateY(-5px);
             background-color: rgba(255, 255, 255, 0.02);
         }
+
+        /* Hero Spotlights */
+        .spotlight {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            pointer-events: none;
+            z-index: 1;
+        }
+        .spotlight-1 {
+            top: -20%;
+            left: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, rgba(184, 115, 51, 0.15) 0%, rgba(10, 20, 31, 0) 70%);
+            animation: pulse-glow 8s infinite alternate;
+        }
+        .spotlight-2 {
+            bottom: -20%;
+            right: -10%;
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, rgba(20, 28, 45, 0.4) 0%, rgba(10, 20, 31, 0) 70%);
+        }
+        .spotlight-3 {
+            top: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40vw;
+            height: 40vw;
+            background: radial-gradient(circle, rgba(184, 115, 51, 0.08) 0%, rgba(10, 20, 31, 0) 70%);
+            mix-blend-mode: screen;
+        }
+        @keyframes pulse-glow {
+            0% { opacity: 0.3; transform: scale(1); }
+            100% { opacity: 0.5; transform: scale(1.1); }
+        }
     </style>
 </head>
 
@@ -141,6 +178,11 @@
     </header>
     <main>
         <section class="relative min-h-screen flex items-center pt-24 pb-12 overflow-hidden">
+            <!-- Spotlights -->
+            <div class="spotlight spotlight-1"></div>
+            <div class="spotlight spotlight-2"></div>
+            <div class="spotlight spotlight-3"></div>
+
             <div class="container mx-auto px-6 relative z-10">
                 <div class="grid grid-cols-12 gap-6 items-center">
                     <div class="col-span-12 lg:col-span-7 z-20">
@@ -325,7 +367,7 @@
             </div>
         </section>
         <section class="py-40 bg-deep-blue border-y border-white/5" id="process">
-            <div class="px-6 md:px-20">
+            <div class="container mx-auto px-6">
                 <div class="mb-32">
                     <h2 class="text-[10px] font-bold uppercase tracking-[0.5em] text-copper mb-6">The Development
                         Lifecycle</h2>
