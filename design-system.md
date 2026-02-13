@@ -4,13 +4,13 @@
 
 | Name | Hex | Usage |
 |------|-----|-------|
-| `forest` | `#0a1f1c` | Primary Background |
-| `deep-green` | `#142d29` | Secondary Background, Sections |
-| `background-dark` | `#050f0d` | Darker Backgrounds, Contrast |
+| `midnight` | `#0a141f` | Primary Background |
+| `deep-blue` | `#141c2d` | Secondary Background, Sections |
+| `navy-black` | `#05080f` | Darker Backgrounds, Contrast |
 | `copper` | `#b87333` | Accents, Links, Highlights |
 | `copper-light` | `#d4a780` | Lighter accents |
 | `silver` | `#c0c0c0` | Primary Text |
-| `muted-silver` | `#8e9b97` | Secondary Text, Borders |
+| `muted-slate` | `#8e949b` | Secondary Text, Borders |
 | `white` | `#ffffff` | Headings, High Contrast Text |
 
 ## Typography
@@ -29,7 +29,7 @@
 ### Buttons
 - **Primary:**
   - Background: `bg-copper`
-  - Text: `text-forest`
+  - Text: `text-midnight`
   - Font: `font-black uppercase tracking-[0.5em] text-xs`
   - Hover: `hover:bg-white`
 
@@ -52,9 +52,8 @@
   - Title: White text
   - List Items: `text-[10px] uppercase tracking-[0.2em]` with copper bullet points
 - **Process Step:**
-  - Border: `border-l border-white/10`
   - Number: Large display font `text-5xl text-copper/20`
-  - Hover Effect: `hover:bg-forest`
+  - Hover Effect: `hover:bg-midnight`
 
 ## Utilities
 - `.editorial-line`: 1px height, gradient from transparent to copper-50% to transparent.
