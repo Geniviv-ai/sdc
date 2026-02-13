@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Seniors DevCo | Disruptive Luxury in Senior Living</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Plus+Jakarta+Sans:wght@200;300;400;500;600&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "forest": "#0a1f1c",
+                        "deep-green": "#142d29",
+                        "silver": "#c0c0c0",
+                        "muted-silver": "#8e9b97",
+                        "copper": "#b87333",
+                        "copper-light": "#d4a780",
+                        "background-dark": "#050f0d"
+                    },
+                    fontFamily: {
+                        "display": ["Playfair Display", "serif"],
+                        "sans": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer base {
+            body { 
+                @apply bg-forest text-silver font-sans selection:bg-copper selection:text-white;
+                overflow-x: hidden;
+            }
+            h1, h2, h3, h4, .display-serif { 
+                @apply font-display tracking-tight;
+            }
+        }
+        
+        /* Noise Texture */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .editorial-line {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(184, 115, 51, 0.5), transparent);
+        }
+        .asymmetric-mask {
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+        .text-vertical {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            transform: rotate(180deg);
+        }
+        @media (max-width: 1024px) {
+            .text-vertical {
+                writing-mode: horizontal-tb;
+                transform: none;
+                height: auto !important;
+                width: 100%;
+                border-left: none !important;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                padding-left: 0 !important;
+                padding-bottom: 0.5rem;
+                margin-bottom: 1rem;
+                display: flex !important;
+                justify-content: flex-start !important;
+            }
+        }
+        .nav-link {
+            @apply relative text-[10px] font-bold uppercase tracking-[0.3em] text-white/60 transition-colors hover:text-white;
+        }
+        .nav-link::after {
+            content: '';
+            @apply absolute -bottom-2 left-0 w-0 h-px bg-copper transition-all duration-300;
+        }
+        .nav-link:hover::after {
+            @apply w-full;
+        }
+        
+        /* Animations */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-up {
+            animation: fadeUp 1s ease-out forwards;
+        }
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+
+        /* Stats Card Hover */
+        .stats-card {
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .stats-card:hover {
+            transform: translateY(-5px);
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+    </style>
+</head>
+
+<body class="bg-forest relative">
+    <div class="noise-overlay"></div>
+    <header class="fixed top-0 left-0 right-0 z-50 px-6 py-5 backdrop-blur-xl bg-forest/80 border-b border-white/5">
+        <nav class="max-w-screen-2xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-2 group cursor-pointer">
+                <span class="text-2xl font-black tracking-tighter uppercase text-white font-sans">SDC.</span>
+            </div>
+            <div class="hidden lg:flex items-center gap-12 font-sans">
+                <a class="nav-link" href="#services">Services</a>
+                <a class="nav-link" href="#process">Process</a>
+                <a class="nav-link" href="#portfolio">Our Work</a>
+                <a class="nav-link" href="#leadership">Team</a>
+            </div>
+            <button
+                class="border border-white/20 hover:border-copper px-6 py-3 text-[10px] font-bold uppercase tracking-[0.3em] text-white backdrop-blur-sm transition-all hover:bg-copper/10 hover:shadow-lg hover:shadow-copper/20">
+                Request Consultation
+            </button>
+        </nav>
+    </header>
+    <main>
+        <section class="relative min-h-screen flex items-center pt-24 pb-12 overflow-hidden">
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="grid grid-cols-12 gap-6 items-center">
+                    <div class="col-span-12 lg:col-span-7 z-20">
+                        <span
+                            class="inline-block text-copper uppercase text-[10px] tracking-[0.5em] font-bold mb-8 block translate-x-1 animate-fade-up opacity-0">
+                            Investment-Grade Consulting
+                        </span>
+                        <h1
+                            class="text-5xl md:text-8xl lg:text-9xl leading-[0.9] text-white mb-12 animate-fade-up delay-100 opacity-0">
+                            Architectural <br />
+                            <span class="italic font-light ml-8 lg:ml-24 text-muted-silver">Precision</span> <br />
+                            In Senior Living.
+                        </h1>
+                        <div class="max-w-md ml-auto lg:mr-24 animate-fade-up delay-200 opacity-0">
+                            <p class="text-lg text-muted-silver leading-relaxed mb-10 font-light">
+                                Specialized consulting for property owners transforming land into high-performing,
+                                sophisticated senior living communities. We bridge the gap between architectural vision
+                                and capital performance.
+                            </p>
+                            <div class="flex items-center gap-12">
+                                <button
+                                    class="group flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-white hover:text-copper transition-colors">
+                                    <span class="w-12 h-px bg-copper group-hover:w-20 transition-all"></span>
+                                    View Portfolio
+                                </button>
+                                <button
+                                    class="group flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-muted-silver hover:text-white transition-colors">
+                                    <span class="w-12 h-px bg-white/20 group-hover:bg-copper transition-all"></span>
+                                    Our Process
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-span-12 lg:col-span-5 relative mt-12 lg:mt-0 animate-fade-up delay-300 opacity-0">
+                        <div
+                            class="relative w-full aspect-[3/4] overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 shadow-2xl asymmetric-mask">
+                            <img alt="Luxury Senior Living"
+                                class="w-full h-full object-cover scale-110 hover:scale-100 transition-transform duration-1000"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5Wai3Lkd9Jo8N7Ak12wS8KVVguHMYqOscB1vIJKr40W8FVTj4imiZcJYGitU6kfq8BN6-NSE1b2GW8TuNkxrS3wZBCpdTDPgjZxsnDyCJbrh4eQQiOAyQkRFVbq92GA-eqtxcqRnDWroQVDDB8QlA-eg5SxxKsGmApLghWj06TA6YtctDNmKeNs9zqCqFyuGt07Wkb-WTkt7ONiGPJONMCx6whjvkRckg72jM7RNwAVcKb69uxLvHl9hxKz0gqV7_QMzaSGXAbIZp" />
+                        </div>
+                        <div class="absolute -left-12 bottom-12 bg-copper p-8 max-w-[240px] hidden lg:block shadow-lg">
+                            <p class="text-[10px] uppercase tracking-widest text-forest font-black mb-2">Featured
+                                Statement</p>
+                            <p class="text-sm italic text-white/90 leading-snug">The Kensington Heights: A study in
+                                modern accessibility and high-end aesthetic.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/2 opacity-[0.03] select-none pointer-events-none">
+                <span class="text-[40rem] font-display italic text-white leading-none">Living</span>
+            </div>
+        </section>
+        <section class="bg-background-dark py-32 relative">
+            <div class="max-w-screen-2xl mx-auto px-6">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-24">
+                    <div class="stats-card border-t border-white/10 pt-8 group p-6">
+                        <span
+                            class="block text-5xl font-display text-white mb-2 group-hover:text-copper transition-colors">$2.4B</span>
+                        <span class="block text-[10px] font-bold uppercase tracking-[0.3em] text-muted-silver">Projects
+                            Managed</span>
+                    </div>
+                    <div class="stats-card border-t border-white/10 pt-8 group p-6">
+                        <span
+                            class="block text-5xl font-display text-white mb-2 group-hover:text-copper transition-colors">47</span>
+                        <span
+                            class="block text-[10px] font-bold uppercase tracking-[0.3em] text-muted-silver">Communities
+                            Built</span>
+                    </div>
+                    <div class="stats-card border-t border-white/10 pt-8 group p-6">
+                        <span
+                            class="block text-5xl font-display text-white mb-2 group-hover:text-copper transition-colors">18%</span>
+                        <span class="block text-[10px] font-bold uppercase tracking-[0.3em] text-muted-silver">Avg
+                            ROI</span>
+                    </div>
+                    <div class="stats-card border-t border-white/10 pt-8 group p-6">
+                        <span
+                            class="block text-5xl font-display text-white mb-2 group-hover:text-copper transition-colors">25+</span>
+                        <span class="block text-[10px] font-bold uppercase tracking-[0.3em] text-muted-silver">Years
+                            Experience</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="py-40 bg-forest relative" id="services">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col lg:flex-row items-start gap-12 lg:gap-24">
+                    <div class="lg:w-1/3 lg:sticky lg:top-40 relative">
+                        <h2 class="text-copper uppercase text-[10px] tracking-[0.5em] font-black mb-6">Core Competencies
+                        </h2>
+                        <h3 class="text-5xl md:text-6xl text-white leading-tight mb-8">Our Specialized <br /><span
+                                class="italic text-muted-silver">Services</span></h3>
+                        <div class="w-12 h-[2px] bg-copper"></div>
+                    </div>
+                    <div class="lg:w-2/3 space-y-24 lg:space-y-40">
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-start relative">
+                            <span
+                                class="lg:col-span-1 text-vertical text-[10px] uppercase tracking-widest text-white/20 font-bold border-l border-white/10 pl-2 h-full flex items-center justify-center">01.
+                                DATA</span>
+                            <div class="lg:col-span-11 lg:col-span-8">
+                                <h4 class="text-2xl lg:text-3xl text-white mb-6 flex items-center gap-4">
+                                    <span class="material-symbols-outlined text-copper font-light">analytics</span>
+                                    Feasibility Studies
+                                </h4>
+                                <p class="text-muted-silver leading-relaxed mb-8">Data-driven market analysis and site
+                                    potential evaluation designed to mitigate risk before capital commitment.</p>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div
+                                        class="text-[10px] uppercase tracking-[0.2em] font-bold text-white/40 flex items-center gap-3">
+                                        <span class="w-1.5 h-1.5 bg-copper rounded-full"></span> Demographic Analysis
+                                    </div>
+                                    <div
+                                        class="text-[10px] uppercase tracking-[0.2em] font-bold text-white/40 flex items-center gap-3">
+                                        <span class="w-1.5 h-1.5 bg-copper rounded-full"></span> Competitive Landscape
+                                    </div>
+                                    <div
+                                        class="text-[10px] uppercase tracking-[0.2em] font-bold text-white/40 flex items-center gap-3">
+                                        <span class="w-1.5 h-1.5 bg-copper rounded-full"></span> Financial Projection
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-start relative lg:ml-24">
+                            <span
+                                class="lg:col-span-1 text-vertical text-[10px] uppercase tracking-widest text-white/20 font-bold border-l border-white/10 pl-2 h-full flex items-center justify-center">02.
+                                FORM</span>
+                            <div class="lg:col-span-11 lg:col-span-8">
+                                <h4 class="text-2xl lg:text-3xl text-white mb-6 flex items-center gap-4">
+                                    <span class="material-symbols-outlined text-copper font-light">draw</span>
+                                    Design Oversight
+                                </h4>
+                                <p class="text-muted-silver leading-relaxed mb-8">Ensuring aesthetic excellence and
+                                    functional sophistication through every phase of the architectural process.</p>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div
+                                        class="text-[10px] uppercase tracking-[0.2em] font-bold text-white/40 flex items-center gap-3">
+                                        <span class="w-1.5 h-1.5 bg-copper rounded-full"></span> Concept Development
+                                    </div>
+                                    <div
+                                        class="text-[10px] uppercase tracking-[0.2em] font-bold text-white/40 flex items-center gap-3">
+                                        <span class="w-1.5 h-1.5 bg-copper rounded-full"></span> Interior Integration
+                                    </div>
+                                    <div
+                                        class="text-[10px] uppercase tracking-[0.2em] font-bold text-white/40 flex items-center gap-3">
+                                        <span class="w-1.5 h-1.5 bg-copper rounded-full"></span> Vendor Coordination
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-start relative lg:-ml-12">
+                            <span
+                                class="lg:col-span-1 text-vertical text-[10px] uppercase tracking-widest text-white/20 font-bold border-l border-white/10 pl-2 h-full flex items-center justify-center">03.
+                                SCALE</span>
+                            <div class="lg:col-span-11 lg:col-span-8">
+                                <h4 class="text-2xl lg:text-3xl text-white mb-6 flex items-center gap-4">
+                                    <span
+                                        class="material-symbols-outlined text-copper font-light">account_balance</span>
+                                    Capital Structuring
+                                </h4>
+                                <p class="text-muted-silver leading-relaxed mb-8">Strategic financial modeling and
+                                    investment-grade structuring to maximize developer and investor returns.</p>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div
+                                        class="text-[10px] uppercase tracking-[0.2em] font-bold text-white/40 flex items-center gap-3">
+                                        <span class="w-1.5 h-1.5 bg-copper rounded-full"></span> Debt &amp; Equity
+                                        Strategy
+                                    </div>
+                                    <div
+                                        class="text-[10px] uppercase tracking-[0.2em] font-bold text-white/40 flex items-center gap-3">
+                                        <span class="w-1.5 h-1.5 bg-copper rounded-full"></span> Investor Reporting
+                                    </div>
+                                    <div
+                                        class="text-[10px] uppercase tracking-[0.2em] font-bold text-white/40 flex items-center gap-3">
+                                        <span class="w-1.5 h-1.5 bg-copper rounded-full"></span> Exit Planning
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="py-40 bg-deep-green border-y border-white/5" id="process">
+            <div class="px-6 md:px-20">
+                <div class="mb-32">
+                    <h2 class="text-[10px] font-bold uppercase tracking-[0.5em] text-copper mb-6">The Development
+                        Lifecycle</h2>
+                    <h3 class="text-5xl lg:text-7xl text-white font-light italic">Architectural Path <span
+                            class="not-italic text-muted-silver">to Success</span></h3>
+                </div>
+                <div class="flex flex-col lg:flex-row gap-0">
+                    <div
+                        class="flex-1 border-l border-white/10 p-12 hover:bg-forest transition-colors group cursor-default">
+                        <span
+                            class="text-5xl font-display text-copper/20 group-hover:text-copper transition-colors mb-8 block">01</span>
+                        <h5 class="text-xl font-bold text-white mb-4 uppercase tracking-widest">Site Selection</h5>
+                        <p class="text-xs text-muted-silver uppercase tracking-widest font-medium mb-10">Strategic
+                            Acquisition</p>
+                        <div class="w-full h-px bg-white/10 group-hover:bg-copper transition-all"></div>
+                    </div>
+                    <div
+                        class="flex-1 border-l border-white/10 p-12 hover:bg-forest transition-colors group cursor-default">
+                        <span
+                            class="text-5xl font-display text-copper/20 group-hover:text-copper transition-colors mb-8 block">02</span>
+                        <h5 class="text-xl font-bold text-white mb-4 uppercase tracking-widest">Zoning &amp; Permits
+                        </h5>
+                        <p class="text-xs text-muted-silver uppercase tracking-widest font-medium mb-10">Regulatory
+                            Navigation</p>
+                        <div class="w-full h-px bg-white/10 group-hover:bg-copper transition-all"></div>
+                    </div>
+                    <div
+                        class="flex-1 border-l border-white/10 p-12 hover:bg-forest transition-colors group cursor-default">
+                        <span
+                            class="text-5xl font-display text-copper/20 group-hover:text-copper transition-colors mb-8 block">03</span>
+                        <h5 class="text-xl font-bold text-white mb-4 uppercase tracking-widest">Construction</h5>
+                        <p class="text-xs text-muted-silver uppercase tracking-widest font-medium mb-10">Project
+                            Management</p>
+                        <div class="w-full h-px bg-white/10 group-hover:bg-copper transition-all"></div>
+                    </div>
+                    <div
+                        class="flex-1 border-l border-r border-white/10 p-12 hover:bg-forest transition-colors group cursor-default">
+                        <span
+                            class="text-5xl font-display text-copper/20 group-hover:text-copper transition-colors mb-8 block">04</span>
+                        <h5 class="text-xl font-bold text-white mb-4 uppercase tracking-widest">Operational Launch</h5>
+                        <p class="text-xs text-muted-silver uppercase tracking-widest font-medium mb-10">Asset
+                            Performance</p>
+                        <div class="w-full h-px bg-white/10 group-hover:bg-copper transition-all"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="py-40 bg-forest relative overflow-hidden" id="leadership">
+            <div class="container mx-auto px-6">
+                <div class="mb-24">
+                    <h2 class="text-copper uppercase text-[10px] tracking-[0.5em] font-black mb-6">Leadership</h2>
+                    <h3 class="text-5xl md:text-6xl text-white leading-tight mb-8">
+                        Founding <br /><span class="italic text-muted-silver">Partners</span>
+                    </h3>
+                    <div class="w-12 h-[2px] bg-copper"></div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-20">
+                    <!-- Member 1 -->
+                    <div class="group">
+                        <div
+                            class="aspect-[4/5] overflow-hidden grayscale hover:grayscale-0 transition-all duration-700 mb-8 border border-white/5">
+                            <img alt="Marcus Sterling"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                src="/Users/jt/.gemini/antigravity/brain/e50b1eed-296d-4f50-9363-3d0c923678fa/marcus_sterling_portrait_1771000766075.png" />
+                        </div>
+                        <h4 class="text-2xl text-white mb-2">Marcus Sterling</h4>
+                        <p class="text-[10px] uppercase tracking-[0.3em] font-bold text-copper">Managing Director</p>
+                    </div>
+                    <!-- Member 2 -->
+                    <div class="group">
+                        <div
+                            class="aspect-[4/5] overflow-hidden grayscale hover:grayscale-0 transition-all duration-700 mb-8 border border-white/5">
+                            <img alt="Elena Rossi"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                src="/Users/jt/.gemini/antigravity/brain/e50b1eed-296d-4f50-9363-3d0c923678fa/elena_rossi_portrait_1771000777979.png" />
+                        </div>
+                        <h4 class="text-2xl text-white mb-2">Elena Rossi</h4>
+                        <p class="text-[10px] uppercase tracking-[0.3em] font-bold text-copper">Head of Design</p>
+                    </div>
+                    <!-- Member 3 -->
+                    <div class="group">
+                        <div
+                            class="aspect-[4/5] overflow-hidden grayscale hover:grayscale-0 transition-all duration-700 mb-8 border border-white/5">
+                            <img alt="David Chen"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                src="/Users/jt/.gemini/antigravity/brain/e50b1eed-296d-4f50-9363-3d0c923678fa/david_chen_portrait_1771000791428.png" />
+                        </div>
+                        <h4 class="text-2xl text-white mb-2">David Chen</h4>
+                        <p class="text-[10px] uppercase tracking-[0.3em] font-bold text-copper">Principal of Capital
+                            Markets</p>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="absolute top-1/2 left-0 -translate-y-1/2 -translate-x-1/3 opacity-[0.02] select-none pointer-events-none">
+                <span class="text-[30rem] font-display italic text-white leading-none uppercase">Team</span>
+            </div>
+        </section>
+        <section class="py-40 bg-white relative overflow-hidden">
+            <div class="container mx-auto px-6 text-center relative z-10">
+                <p class="text-forest font-black tracking-[0.8em] uppercase text-[10px] mb-12">Your Vision, Our
+                    Expertise</p>
+                <h2 class="text-6xl md:text-9xl font-display text-forest leading-[0.85] mb-16 tracking-tighter">
+                    Ready to develop <br /> your <span class="italic text-copper">next</span> community?
+                </h2>
+                <button
+                    class="bg-forest text-white px-16 py-8 text-xs font-black uppercase tracking-[0.4em] hover:bg-copper transition-colors">
+                    Schedule a Private Consultation
+                </button>
+            </div>
+            <div class="absolute -bottom-40 -left-40 w-[600px] h-[600px] bg-copper/5 rounded-full blur-3xl"></div>
+        </section>
+        <section class="py-40 bg-background-dark overflow-hidden" id="contact">
+            <div class="container mx-auto px-6">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-24 items-start">
+                    <div class="lg:col-span-5">
+                        <h2 class="text-5xl lg:text-7xl font-display text-white mb-12 leading-tight">Connect with our
+                            <br /> <span class="italic text-muted-silver">Principal Partners</span>
+                        </h2>
+                        <p class="text-muted-silver text-xl mb-20 font-light leading-relaxed">We provide discrete,
+                            high-level advisory for complex developments. Reach out to discuss your land holdings or
+                            investment goals.</p>
+                        <div class="space-y-12">
+                            <div class="flex gap-10 group">
+                                <span
+                                    class="material-symbols-outlined text-copper text-3xl font-light">location_on</span>
+                                <div>
+                                    <p class="text-white font-bold tracking-widest uppercase text-xs mb-3">Main Office
+                                    </p>
+                                    <p class="text-muted-silver text-sm leading-relaxed">1200 Avenue of the
+                                        Americas<br />Floor 44, New York, NY 10036</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-10 group">
+                                <span class="material-symbols-outlined text-copper text-3xl font-light">call</span>
+                                <div>
+                                    <p class="text-white font-bold tracking-widest uppercase text-xs mb-3">Direct Line
+                                    </p>
+                                    <p class="text-muted-silver text-sm">+1 (212) 555-0198</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-10 group">
+                                <span class="material-symbols-outlined text-copper text-3xl font-light">mail</span>
+                                <div>
+                                    <p class="text-white font-bold tracking-widest uppercase text-xs mb-3">Email
+                                        Correspondence</p>
+                                    <p class="text-muted-silver text-sm">inquiry@seniorsdev.co</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-7 relative">
+                        <div class="absolute -top-12 -right-12 w-64 h-64 border border-white/5 pointer-events-none">
+                        </div>
+                        <div class="bg-forest/50 backdrop-blur-xl p-12 lg:p-20 relative z-10 border border-white/10">
+                            <form action="#" class="space-y-10">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                                    <div class="relative group">
+                                        <label
+                                            class="absolute -top-3 left-0 text-[10px] font-black uppercase tracking-widest text-copper">Full
+                                            Name</label>
+                                        <input
+                                            class="w-full bg-transparent border-0 border-b border-white/20 focus:border-copper focus:ring-0 px-0 py-4 text-white text-lg placeholder:text-white/10"
+                                            placeholder="John Doe" type="text" />
+                                    </div>
+                                    <div class="relative group">
+                                        <label
+                                            class="absolute -top-3 left-0 text-[10px] font-black uppercase tracking-widest text-copper">Email
+                                            Address</label>
+                                        <input
+                                            class="w-full bg-transparent border-0 border-b border-white/20 focus:border-copper focus:ring-0 px-0 py-4 text-white text-lg placeholder:text-white/10"
+                                            placeholder="john@company.com" type="email" />
+                                    </div>
+                                </div>
+                                <div class="relative">
+                                    <label
+                                        class="absolute -top-3 left-0 text-[10px] font-black uppercase tracking-widest text-copper">Project
+                                        Type</label>
+                                    <select
+                                        class="w-full bg-transparent border-0 border-b border-white/20 focus:border-copper focus:ring-0 px-0 py-4 text-white text-lg appearance-none">
+                                        <option class="bg-forest">Assisted Living Community</option>
+                                        <option class="bg-forest">Luxury Independent Living</option>
+                                        <option class="bg-forest">Memory Care Facility</option>
+                                        <option class="bg-forest">Multi-phase Development</option>
+                                    </select>
+                                </div>
+                                <div class="relative">
+                                    <label
+                                        class="absolute -top-3 left-0 text-[10px] font-black uppercase tracking-widest text-copper">Message</label>
+                                    <textarea
+                                        class="w-full bg-transparent border-0 border-b border-white/20 focus:border-copper focus:ring-0 px-0 py-4 text-white text-lg placeholder:text-white/10 min-h-[120px]"
+                                        placeholder="Brief description of your project..." rows="3"></textarea>
+                                </div>
+                                <button
+                                    class="w-full bg-copper text-forest font-black py-6 uppercase tracking-[0.5em] text-xs hover:bg-white transition-all transform hover:-translate-y-1 shadow-2xl">
+                                    Submit Inquiry
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="bg-forest py-24 border-t border-white/5">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row justify-between items-start gap-16 mb-24">
+                <div class="max-w-sm">
+                    <div class="flex items-center gap-4 mb-8">
+                        <span class="material-symbols-outlined text-copper text-4xl font-light">architecture</span>
+                        <span class="text-3xl font-display font-black tracking-tighter uppercase text-white">Seniors
+                            <br /> DevCo</span>
+                    </div>
+                    <p class="text-muted-silver text-sm leading-relaxed">Redefining the standard of care through
+                        architectural brilliance and financial rigor.</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-12 lg:gap-24">
+                    <div>
+                        <h6 class="text-white font-bold uppercase tracking-widest text-[10px] mb-6">Discovery</h6>
+                        <ul class="space-y-4 text-muted-silver text-xs tracking-widest uppercase">
+                            <li><a class="hover:text-copper transition-colors" href="#">Services</a></li>
+                            <li><a class="hover:text-copper transition-colors" href="#">Process</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h6 class="text-white font-bold uppercase tracking-widest text-[10px] mb-6">Work</h6>
+                        <ul class="space-y-4 text-muted-silver text-xs tracking-widest uppercase">
+                            <li><a class="hover:text-copper transition-colors" href="#">Portfolio</a></li>
+                            <li><a class="hover:text-copper transition-colors" href="#">Insights</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h6 class="text-white font-bold uppercase tracking-widest text-[10px] mb-6">Legal</h6>
+                        <ul class="space-y-4 text-muted-silver text-xs tracking-widest uppercase">
+                            <li><a class="hover:text-copper transition-colors" href="#">Privacy Policy</a></li>
+                            <li><a class="hover:text-copper transition-colors" href="#">Terms</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="editorial-line mb-12"></div>
+            <div
+                class="flex flex-col md:flex-row justify-between items-center gap-8 text-[9px] font-bold uppercase tracking-[0.5em] text-white/30">
+                <p>© 2024 Seniors DevCo. All rights reserved.</p>
+                <p class="italic">Designed for Excellence in Senior Housing.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
